@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biliinsomnia T-shirt</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-flex">
+    <h1>Biliinsomnia T-shirt</h1>
+
+    <div class="right-controls">
+      <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+      <a href="cart.html" class="cart-btn">Keranjang 🛒</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <input id="search" placeholder="Cari produk..." />
+  </div>
+</header>
+
+<main class="container">
+  <section id="product-grid" class="grid"></section>
+</main>
+
+<footer class="site-footer">
+  © Biliinsomnia T-shirt
+</footer>
+
+<script>
+const products = [
+  {id:1, name:'Rugby', size:'M,L,XL', stock:52, price:85000, img:'Rugby.jpg'},
+  {id:2, name:'Graphic tee', size:'M,L,XL', stock:38, price:90000, img:'graphic tee.jpg'},
+  {id:3, name:'Cootane', size:'S,M,L', stock:44, price:88000, img:'cootane.jpg'},
+  {id:4, name:'Nom SG', size:'S,M,L,XL,XXL', stock:60, price:95000, img:'Nom sg.jpg'},
+  {id:5, name:'Polo Shirt', size:'S,M,L', stock:72, price:92000, img:'Polo shirt.jpg'},
+  {id:6, name:'AEL', size:'M,L,XL', stock:80, price:86000, img:'AEL.jpg'},
+  {id:7, name:'KILLER', size:'M,L,XL', stock:41, price:89000, img:'killer.jpg'},
+  {id:8, name:'CALIFORNIA PINK', size:'M,L,XL', stock:33, price:94000, img:'California Pink.jpg'},
+  {id:9, name:'VINTAGE TEE', size:'S,XL', stock:57, price:87000, img:'Vintage tee.jpg'},
+  {id:10, name:'TWENTY TWO', size:'M,L,XXL', stock:48, price:91000, img:'twenty two.jpg'},
+  {id:11, name:'T-SHIRT MACAN', size:'L,XL', stock:37, price:85000, img:'t-shirt macan.jpg'},
+  {id:12, name:'T-SHIRT EVOS', size:'M,L,XXL', stock:55, price:90000, img:'t-shirt evos.jpg'},
+  {id:13, name:'T-SHIRT BARCELONA', size:'S,M,XL,XXL', stock:63, price:88000, img:'t-shirt barcelona.jpg'},
+  {id:14, name:'T-SHIRT RRQ', size:'M,L,XL', stock:49, price:95000, img:'t-shirt rrq.jpg'},
+  {id:15, name:'T-SHIRT BOLA', size:'M,XL', stock:68, price:92000, img:'t-shirt bola.jpg'},
+  {id:16, name:'SUCK MY', size:'S,M,XL,XXL', stock:42, price:86000, img:'suck my.jpg'},
+  {id:17, name:'R', size:'S,M,L,XL,XXL', stock:35, price:89000, img:'R.jpg'},
+  {id:18, name:'LEMANDIK', size:'S,M,L', stock:73, price:94000, img:'lemandik.jpg'},
+  {id:19, name:'T-SHIRT KAMENGSKI', size:'S,M', stock:59, price:87000, img:'kamengski.jpg'},
+  {id:20, name:'T-SHIRT REAL MADRID', size:'M,XL', stock:46, price:91000, img:'real madrid.jpg'},
+  {id:21, name:'T-SHIRT PINK', size:'S,XL', stock:50, price:85000, img:'t-shirt pink.jpg'},
+  {id:22, name:'NIKE', size:'S,XL', stock:61, price:90000, img:'nike.jpg'},
+  {id:23, name:'ZIPPER', size:'M', stock:39, price:88000, img:'zipper.jpg'},
+  {id:24, name:'ZAG', size:'M,XL', stock:57, price:95000, img:'zag.jpg'},
+  {id:25, name:'CHOIZE', size:'S,L', stock:69, price:92000, img:'choize.jpg'},
+  {id:26, name:'IDEEVERAY', size:'S,L', stock:64, price:86000, img:'ideeveray.jpg'},
+  {id:27, name:'ARIZONA', size:'XL', stock:53, price:89000, img:'arizona.jpg'},
+  {id:28, name:'STAR GIRL', size:'M,L,XL', stock:40, price:94000, img:'stargirl.jpg'},
+  {id:29, name:'EMIT', size:'L,XL', stock:58, price:87000, img:'emit.jpg'},
+  {id:30, name:'NEW LIFE', size:'L,XL', stock:47, price:91000, img:'new life.jpg'},
+];
+function formatRupiah(n){
+  return 'Rp ' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+const grid = document.getElementById('product-grid');
+const searchInput = document.getElementById('search');
+
+function render(list){
+  grid.innerHTML = list.map(p => {
+    const sizes = p.size.split(",");
+
+    return `
+      <article class="card">
+        <img class="prod-img" src="${p.img}" alt="${p.name}">
+        
+        <h3>${p.name}</h3>
+        
+        <p class="meta">Stok: <b>${p.stock}</b></p>
+
+        <label>Pilih ukuran:</label>
+        <select id="size-${p.id}">
+          <option value="">-- pilih ukuran --</option>
+          ${sizes.map(s => `<option value="${s}">${s}</option>`).join("")}
+        </select>
+
+        <p class="price">${formatRupiah(p.price)}</p>
+
+        <button class="btn" onclick="addToCart(${p.id})">Tambah ke Keranjang</button>
+      </article>
+    `;
+  }).join('');
+}
+
+function addToCart(id){
+  const p = products.find(x => x.id === id);
+  const sizeSelect = document.getElementById("size-" + id);
+  const chosenSize = sizeSelect.value;
+
+  if(chosenSize === ""){
+    alert("Pilih ukuran terlebih dahulu!");
+    return;
+  }
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.push({
+    name: p.name,
+    price: p.price,
+    img: p.img,
+    size: chosenSize
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(p.name + " (Ukuran " + chosenSize + ") ditambahkan ke keranjang!");
+}
+
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.toLowerCase();
+  render(products.filter(p => p.name.toLowerCase().includes(q)));
+});
+
+render(products);
+
+// DARK MODE
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("darkmode", document.body.classList.contains("dark"));
+}
+
+if(localStorage.getItem("darkmode") === "true"){
+  document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>

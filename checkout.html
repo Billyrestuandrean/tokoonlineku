@@ -1,0 +1,40 @@
+<div class="checkout-box">
+  <h2>Data Pelanggan</h2>
+
+  <label>Nama Lengkap</label>
+  <input type="text" id="cName" required>
+
+  <label>No. HP/WA</label>
+  <input type="text" id="cPhone" required>
+
+  <label>Alamat Lengkap</label>
+  <textarea id="cAddress" required></textarea>
+
+  <button class="pay-btn" onclick="proceedPayment()">Lanjutkan Pembayaran</button>
+</div>
+<!-- 🧍 Data Pelanggan -->
+<section class="customer-form">
+  <h3>Data Pelanggan</h3>
+  <input id="cust-name" placeholder="Nama Lengkap">
+  <input id="cust-phone" placeholder="Nomor WhatsApp">
+  <textarea id="cust-address" placeholder="Alamat Lengkap"></textarea>
+</section>
+
+<!-- 💳 Metode Pembayaran -->
+<section class="payment-box">
+  <h3>Metode Pembayaran</h3>
+  <select id="payment-method" onchange="showQRIS()">
+    <option value="">-- Pilih Pembayaran --</option>
+    <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+    <option value="Transfer Bank BCA">Transfer BCA</option>
+    <option value="Transfer Bank BRI">Transfer BRI</option>
+    <option value="Transfer Bank Mandiri">Transfer Mandiri</option>
+    <option value="QRIS">QRIS</option>
+  </select>
+
+  <!-- 📌 QRIS akan muncul otomatis di sini -->
+  <div id="qris-box" style="display:none; text-align:center; margin-top:10px;">
+    <p><b>Scan QRIS:</b></p>
+    <img src="qris.jpg" style="width:180px;border-radius:8px;">
+  </div>
+</section>

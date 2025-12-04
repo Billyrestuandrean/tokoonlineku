@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Keranjang Belanja</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-flex">
+    <h1>Keranjang</h1>
+    <div class="right-controls">
+      <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+      <a href="index.html" class="cart-btn">Kembali</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <h2>Daftar Belanja</h2>
+  <div id="cart-list"></div>
+
+  <h3 id="total" class="total-harga"></h3>
+
+  <!-- 🔽 METODE PEMBAYARAN DITAMBAHKAN DI SINI 🔽 -->
+  <section class="payment-box">
+    <h3>Metode Pembayaran</h3>
+    <select id="payment-method">
+      <option value="">-- pilih metode pembayaran --</option>
+      <option value="COD (Bayar di tempat)">Cash on Delivery (COD)</option>
+      <option value="Transfer Bank BCA">Transfer Bank BCA</option>
+      <option value="Transfer Bank BRI">Transfer Bank BRI</option>
+      <option value="Transfer Bank Mandiri">Transfer Bank Mandiri</option>
+    </select>
+    <div id="paymentBox" class="payment-box"></div>
+
+  </section>
+  <!-- 🔼 SELESAI TAMBAH 🔼 -->
+<section class="customer-box">
+  <h3>Data Pelanggan</h3>
+
+  <input type="text" id="cust-name" placeholder="Nama Lengkap" required>
+
+  <input type="text" id="cust-phone" placeholder="Nomor WhatsApp (contoh: 081234567890)" required>
+
+  <textarea id="cust-address" rows="3" placeholder="Alamat Lengkap (Jalan, RT/RW, Kel/Desa, Kecamatan, Kota)" required></textarea>
+</section>
+
+  <button class="btn checkout-btn" onclick="checkout()">Checkout</button>
+</main>
+
+<button onclick="proceedPayment()">Lanjutkan Pembayaran</button>
+
+<script>
+function formatRupiah(n){
+  return 'Rp ' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartList = document.getElementById("cart-list");
+const totalEl = document.getElementById("total");
+
+function renderCart(){
+  if(cart.length === 0){
+    cartList.innerHTML = "<p>Keranjang kosong.</p>";
+    totalEl.innerHTML = "";
+    return;
+  }
+
+  cartList.innerHTML = cart.map((item, i) => `
+    <div class="cart-item">
+      <img src="${item.img}" class="cart-thumb">
+      <span>${item.name} | Size: ${item.size}</span>
+      <span>${formatRupiah(item.price)}</span>
+      <button class="delete-btn" onclick="removeItem(${i})">✖</button>
+    </div>
+  `).join('');
+
+  const total = cart.reduce((a,b) => a + b.price, 0);
+  totalEl.innerHTML = "Total: <b>" + formatRupiah(total) + "</b>";
+}
+
+function removeItem(i){
+  cart.splice(i,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+// 🔽 CHECKOUT DENGAN PEMBAYARAN 🔽
+function checkout(){
+  if(cart.length === 0){
+    alert("Keranjang kosong!");
+    return;
+  }
+
+  const pay = document.getElementById("payment-method").value;
+  if(pay === ""){
+    alert("Silakan pilih metode pembayaran terlebih dahulu!");
+    return;
+  }
+
+  // Simpan data pembayaran & pelanggan ke localStorage dulu
+localStorage.setItem("paymentMethod", pay);
+localStorage.setItem("customerName", document.getElementById("cust-name").value);
+localStorage.setItem("customerPhone", document.getElementById("cust-phone").value);
+localStorage.setItem("customerAddress", document.getElementById("cust-address").value);
+
+// Hapus keranjang dan pindah ke invoice
+localStorage.removeItem("cart");
+window.location.href = "invoice.html";
+
+}
+renderCart();
+
+// DARK MODE
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("darkmode", document.body.classList.contains("dark"));
+}
+if(localStorage.getItem("darkmode") === "true"){
+  document.body.classList.add("dark");
+}
+</script>
+
+</body>
+<script src="script.js"></script>
+</html>

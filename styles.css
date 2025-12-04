@@ -1,0 +1,279 @@
+:root{
+  --bg:#000000;
+  --text:#0f172a;
+  --card:#097634;
+  --accent:#55ff00;
+  --accent2:#000000;
+  --muted:#6b7280;
+}
+
+/* DARK MODE */
+body.dark{
+  --bg:#1a1b26;
+  --text:#e5e5e5;
+  --card:#24273a;
+  --muted:#aaa;
+  --accent:#c8ff00;
+  --accent2:#312682;
+}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.3s;
+}
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:1rem;
+}
+
+.header-flex{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.right-controls{
+  display:flex;
+  gap:.5rem;
+  align-items:center;
+}
+
+.site-header{
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:white;
+  padding:1rem 0;
+}
+
+.dark-toggle{
+  padding:.4rem .6rem;
+  border-radius:8px;
+  border:0;
+  cursor:pointer;
+}
+
+.cart-btn{
+  background:white;
+  padding:.5rem 1rem;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--accent2);
+  font-weight:bold;
+}
+
+/* GRID PRODUK */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:1rem;
+  margin-top:1rem;
+}
+
+.card{
+  background:var(--card);
+  padding:1rem;
+  border-radius:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.1);
+  text-align:center;
+  transition:.3s;
+}
+
+.prod-img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.price{
+  font-weight:bold;
+  font-size:1.1rem;
+}
+
+.btn{
+  width:100%;
+  padding:.6rem;
+  background:var(--accent2);
+  color:white;
+  border:0;
+  border-radius:10px;
+  margin-top:.5rem;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* CART PAGE */
+.cart-item{
+  background:var(--card);
+  padding:1rem;
+  margin-bottom:.6rem;
+  border-radius:10px;
+  display:flex;
+  gap:1rem;
+  align-items:center;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+}
+
+.cart-thumb{
+  width:60px;
+  height:60px;
+  border-radius:8px;
+  object-fit:cover;
+}
+
+.delete-btn{
+  background:#ff4444;
+  border:0;
+  color:white;
+  padding:.3rem .6rem;
+  border-radius:5px;
+  cursor:pointer;
+  margin-left:auto;
+}
+
+.checkout-btn{
+  margin-top:1.5rem;
+}
+.checkout-box {
+  max-width: 500px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.checkout-box pre {
+  text-align: left;
+  font-size: 14px;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.dark .checkout-box {
+  background: #222;
+  color: #fff;
+}
+
+.dark .checkout-box pre {
+  background: #333;
+  color: #fff;
+}
+
+.wa-btn {
+  display: block;
+  margin-top: 15px;
+  padding: 10px;
+  background: green;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.customer-box, .payment-box{
+  background:var(--card);
+  padding:1rem;
+  border-radius:10px;
+  margin-top:1rem;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+}
+
+.customer-box input,
+.customer-box textarea,
+.payment-box select{
+  width:100%;
+  padding:.6rem;
+  border-radius:8px;
+  border:1px solid #ccc;
+  margin-top:.5rem;
+  font-size:.9rem;
+}
+.va-box{
+  background:#fff2c4;
+  border-left:6px solid #e0a800;
+  padding:1rem;
+  border-radius:10px;
+  margin-bottom:1rem;
+}
+
+body.dark .va-box{
+  background:#463b1f;
+  border-color:#ffd34d;
+  color:#fff;
+}
+.checkout-box, .payment-box {
+  width: 350px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+.checkout-box input, .checkout-box textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #0099ff;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.pay-btn:hover {
+  background: #007acc;
+}
+.customer-box, .payment-box{
+  background:var(--card);
+  padding:1rem;
+  border-radius:10px;
+  margin-top:1rem;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+.payment-box select{
+  width:100%;
+  max-width:280px;  /* ❗ batas lebar */
+  padding:.6rem;
+  border-radius:8px;
+  border:1px solid #ccc;
+  margin-top:.5rem;
+  font-size:.9rem;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* ❗ Hilangkan box kosong */
+#paymentBox:empty {
+  padding:0;
+  box-shadow:none;
+  background:transparent;
+  border:none;
+}
+
+.customer-box input,
+.customer-box textarea{
+  width:100%;
+  max-width:300px;
+  display:block;
+  margin:.5rem auto;
+  padding:.6rem;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:.9rem;
+}
